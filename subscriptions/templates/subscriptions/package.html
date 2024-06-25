@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block extra_headers %}
+    <style>
+        .pricing-header {
+            max-width: 700px;
+        }
+
+        .card-deck .card {
+            min-width: 220px;
+        }
+
+        .border-top {
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .box-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+        }
+
+        .card-header {
+            padding: .75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: rgba(0, 0, 0, .03);
+            border-bottom: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        .card-deck .card {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 0%;
+            flex: 1 0 0%;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            margin-right: 15px;
+            margin-bottom: 0;
+            margin-left: 15px;
+        }
+
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-deck .card {
+            min-width: 220px;
+        }
+
+        .card-body {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 1.25rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="card-deck mb-3 mx-n3 text-center" style="display:flex;box-sizing:border-box;flex-flow: row wrap;">
+        {% for package in packages %}
+            <div class="card mb-4 mx-3 box-shadow">
+                <div class="card-header">
+                    <h4>{{ package.title }}</h4>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h1 class="card-title pricing-card-title">{{ package.price }} تومان
+                    </h1>
+                    <small class="text-muted">{{ package.duration.days }} روز</small>
+                    <span style="white-space: pre-line" class="mt-3 mb-4">{{ package.description }}</span>
+                </div>
+                <a href="{{ package.get_absolute_url }}">
+                    <div class="card-footer text-muted mx-auto">
+                        <button type="button" class="mt-auto align-self-end btn btn-lg btn-block btn-primary">خرید اشتراک</button>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

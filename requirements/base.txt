@@ -1,0 +1,12 @@
+Django==5.0.6
+django-mptt==0.16.0
+django-phonenumber-field==7.3.0
+phonenumbers==8.13.37
+pillow==10.3.0
+Babel==2.15.0
+django-ckeditor==6.7.1
+django-nested-inline==0.4.6
+az-iranian-bank-gateways==2.0.5
+jdatetime==5.0.0
+djangorestframework==3.15.1
+kavenegar==1.1.2

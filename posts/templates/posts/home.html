@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="pt-2">
+        {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}"
+               class="px-3 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+               style="text-decoration:none; border-radius: 20px">
+                <div class="card shadow my-2"
+                     style="width: 18rem; max-height: 18rem; display:inline-block; border-radius: 10px; overflow: hidden">
+                    <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{{ post.title }}"
+                         style="height: 10rem">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                    </div>
+                    {% if post.is_premium %}
+                        <div style="position:absolute; bottom: 5px; left: 5px">
+                            <img style="width: 35px; height: auto" src="{% static 'posts/premium.png' %}" alt="premium">
+                        </div>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+        <nav aria-label="Page navigation example"
+             style="display: flex; justify-content: center;">
+            <ul class="pagination mt-4" style="margin: 0 auto">
+                {% if number_of_pages <= 1 %}
+                    <li class="page-item">
+                        <a class="page-link disabled" href="?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">{{ page }} <span
+                            class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link disabled" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% elif number_of_pages == 2 %}
+                    {% if page == 1 %}
+                        <li class="page-item">
+                            <a class="page-link disabled" href="?page=1" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:1 }}">{{ page|add:1 }}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page|add:1 }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page|add:-1 }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:-1 }}">{{ page|add:-1 }}</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link disabled" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    {% if page == 1 %}
+                        <li class="page-item">
+                            <a class="page-link disabled" href="?page=1" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:1 }}">{{ page|add:1 }}</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:2 }}">{{ page|add:2 }}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page|add:1 }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    {% elif page == number_of_pages %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page|add:-1 }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:-2 }}">{{ page|add:-2 }}</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:-1 }}">{{ page|add:-1 }}</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link disabled" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page|add:-1 }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:-1 }}">{{ page|add:-1 }}</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page|add:1 }}">{{ page|add:1 }}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page|add:1 }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
