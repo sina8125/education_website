@@ -1,44 +1,98 @@
+# Django
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
+# local
 from accounts.models import User
+from utils.models import AbstractCreatedUpdatedTime
 
 
-class Package(models.Model):
-    title = models.CharField(max_length=200, null=False)
-    description = models.TextField(blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    price = models.PositiveIntegerField()
-    duration = models.DurationField(blank=True, null=True)
-    created_time = models.DateTimeField(auto_now_add=True)
-    updated_time = models.DateTimeField(auto_now=True)
+class Package(AbstractCreatedUpdatedTime):
+    title = models.CharField(
+        verbose_name=_('عنوان فارسی'),
+        max_length=200,
+        null=False
+    )
+    title_en = models.CharField(
+        verbose_name=_('عنوان انگلیسی'),
+        max_length=200,
+        null=False
+    )
+    description = models.TextField(
+        verbose_name=_('توضیحات فارسی'),
+        blank=True,
+        null=True
+    )
+    description_en = models.TextField(
+        verbose_name=_('توضیحات انگلیسی'),
+        blank=True,
+        null=True
+    )
+    is_active = models.BooleanField(
+        verbose_name=_('وضعیت بسته'),
+        default=True
+    )
+    price = models.PositiveIntegerField(
+        verbose_name=_('قیمت')
+    )
+    duration = models.DurationField(
+        verbose_name=_('مدت زمان'),
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'package'
-        verbose_name_plural = 'packages'
+        verbose_name = _('بسته')
+        verbose_name_plural = _('بسته ها')
 
     def get_absolute_url(self):
-        return reverse('subscriptions:package_detail', args=[self.pk,])
+        return reverse('subscriptions:package_detail', args=[self.pk, ])
 
 
-class Subscription(models.Model):
+class Subscription(AbstractCreatedUpdatedTime):
     from payments.models import Payment
 
-    package = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='subscriptions', null=False,
-                                blank=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriptions', null=False, blank=False)
-    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, related_name='subscriptions', null=True)
-    start_time = models.DateTimeField(default=timezone.now)
-    expire_time = models.DateTimeField(blank=True, null=True)
-    created_time = models.DateTimeField(auto_now_add=True)
+    package = models.ForeignKey(
+        Package,
+        verbose_name=_('بسته'),
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+        null=False,
+        blank=False
+    )
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('کاربر'),
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+        null=False,
+        blank=False
+    )
+    payment = models.ForeignKey(
+        Payment,
+        verbose_name=_('پرداخت'),
+        on_delete=models.SET_NULL,
+        related_name='subscriptions',
+        null=True
+    )
+    start_time = models.DateTimeField(
+        verbose_name=_('زمان شروع'),
+        default=timezone.now
+    )
+    expire_time = models.DateTimeField(
+        verbose_name=_('زمان پایان'),
+        blank=True,
+        null=True
+    )
 
     class Meta:
-        verbose_name = 'subscription'
-        verbose_name_plural = 'subscriptions'
+        verbose_name = _('اشتراک')
+        verbose_name_plural = _('اشتراک ها')
 
     @property
     def is_expired(self):
@@ -64,4 +118,4 @@ class Subscription(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Subscription of {self.user} to {self.package}'
+        return _('اشتراک {} برای کاربر {}').format(self.package, self.user)

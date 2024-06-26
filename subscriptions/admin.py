@@ -1,6 +1,8 @@
+# Django
 from django.contrib import admin
 
-from subscriptions.models import Package, Subscription
+# local
+from .models import Package, Subscription
 
 
 @admin.register(Package)

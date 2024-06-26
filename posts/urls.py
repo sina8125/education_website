@@ -1,5 +1,7 @@
+# Django
 from django.urls import path, include
 
+# local
 from .views import PostListView, PostDetailView, PostAddReplyView, PostAddToFavoriteView
 
 favorite_url = [

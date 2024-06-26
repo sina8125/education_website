@@ -1,25 +1,21 @@
+# Django
 from django.contrib import messages
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from azbankgateways import (
-    bankfactories,
-    models as bank_models,
-    default_settings as settings,
-)
-from azbankgateways.exceptions import AZBankGatewaysException
-
-import logging
 from django.urls import reverse
+
+# local
+from .models import Payment
+from subscriptions.models import Package, Subscription
+
+# third party
 from azbankgateways import (
     bankfactories,
     models as bank_models,
     default_settings as settings,
 )
 from azbankgateways.exceptions import AZBankGatewaysException
-
-from payments.models import Payment
-from subscriptions.models import Package, Subscription
 
 
 def go_to_gateway_view(request, package_id):
@@ -62,4 +58,5 @@ def callback_gateway_view(request):
     except bank_models.Bank.DoesNotExist:
         raise Http404
 
-    return render(request, 'payments/callback.html', {'package': payment.package, 'bank_record': bank_record})
+    return render(request, 'payments/callback.html',
+                  {'package': payment.package, 'bank_record': bank_record})

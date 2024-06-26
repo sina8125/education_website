@@ -1,21 +1,30 @@
-import phonenumbers
+# Django
 from django import forms
-from django.contrib.auth import authenticate
-from django.core.exceptions import ValidationError
-from phonenumber_field.formfields import PhoneNumberField, RegionalPhoneNumberWidget
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
+# local
 from .models import User
-from .validators import validate_phone_number, validate_email, validate_iranian_phone_number
+from .validators import validate_phone_number, validate_email
+
+# third package
+from phonenumber_field.formfields import PhoneNumberField, RegionalPhoneNumberWidget
 
 
 class UserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(
+        label=_('رمز عبور'),
+        widget=forms.PasswordInput
+    )
+    password2 = forms.CharField(
+        label=_('تایید رمز عبور'),
+        widget=forms.PasswordInput
+    )
 
     error_messages = {
-        "password_mismatch": "The two password fields didn’t match."
+        "password_mismatch": _("دو رمز عبور وارد شده مطابقت ندارد.")
     }
 
     class Meta:
@@ -57,11 +66,13 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
+    password = ReadOnlyPasswordHashField(
+        label=_('رمز عبور')
+    )
 
     class Meta:
         model = User
-        fields = ('phone_number', 'first_name', 'last_name', 'birthday', 'email', 'last_login', 'password')
+        fields = ('phone_number', 'first_name', 'last_name', 'birthday', 'email', 'password')
         field_classes = {'phone_number': PhoneNumberField}
         widgets = {
             'phone_number': RegionalPhoneNumberWidget(region='IR'),
@@ -79,16 +90,41 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegistrationForm(forms.Form):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=False)
-    email = forms.EmailField(widget=forms.EmailInput, required=False)
-    birthday = forms.DateField(required=False)
-    phone_number = PhoneNumberField(label='Phone number', region='IR', required=True)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)
+    first_name = forms.CharField(
+        label=_('نام'),
+        required=True
+    )
+    last_name = forms.CharField(
+        label=_('نام خانوادگی'),
+        required=False
+    )
+    email = forms.EmailField(
+        label=_('ایمیل'),
+        widget=forms.EmailInput,
+        required=False
+    )
+    birthday = forms.DateField(
+        label=_('تاریخ تولد'),
+        required=False
+    )
+    phone_number = PhoneNumberField(
+        label=_('شماره تلفن'),
+        region='IR',
+        required=True
+    )
+    password1 = forms.CharField(
+        label=_('رمز عبور'),
+        widget=forms.PasswordInput,
+        required=True
+    )
+    password2 = forms.CharField(
+        label=_('تایید رمز عبور'),
+        widget=forms.PasswordInput,
+        required=True
+    )
 
     error_messages = {
-        "password_mismatch": "The two password fields didn’t match."
+        "password_mismatch": _("دو رمز عبور وارد شده مطابقت ندارد.")
     }
 
     def clean_email(self):
@@ -114,12 +150,25 @@ class UserRegistrationForm(forms.Form):
 
 
 class VerifyPhoneNumberForm(forms.Form):
-    code = forms.IntegerField()
+    code = forms.IntegerField(
+        label=_('کد تایید')
+    )
 
 
 class UserLoginForm(forms.Form):
-    phone_number = PhoneNumberField(region='IR', required=True, widget=forms.TextInput(attrs={"autofocus": True}))
-    password = forms.CharField(widget=forms.PasswordInput, required=True)
+    phone_number = PhoneNumberField(
+        label=_('شماره تلفن'),
+        region='IR',
+        required=True,
+        widget=forms.TextInput(
+            attrs={"autofocus": True}
+        )
+    )
+    password = forms.CharField(
+        label=_('رمز عبور'),
+        widget=forms.PasswordInput,
+        required=True
+    )
 
     # error_messages = {
     #     "invalid_login":
@@ -176,18 +225,29 @@ class UserLoginForm(forms.Form):
 
 
 class ChangePasswordForm(forms.Form):
-    old_password = forms.CharField(label='Old password', widget=forms.PasswordInput, required=True)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)
+    old_password = forms.CharField(
+        label=_('رمز عبور فعلی'),
+        widget=forms.PasswordInput,
+        required=True
+    )
+    password1 = forms.CharField(
+        label=_('رمز عبور جدید'),
+        widget=forms.PasswordInput,
+        required=True
+    )
+    password2 = forms.CharField(
+        label=_('تایید رمز عبور جدید'),
+        widget=forms.PasswordInput,
+        required=True)
 
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
 
     error_messages = {
-        "password_incorrect": "Your old password was entered incorrectly. Please enter it again.",
-        "password_mismatch": "The two password fields didn’t match.",
-        "duplicated_password": "old password same as new password"
+        "password_incorrect": _("رمز عبور فعلی اشتباه وارد شده است. لطفا دوباره وارد کنید."),
+        "password_mismatch": _("دو رمز عبور وارد شده مطابقت ندارد."),
+        "duplicated_password": _("رمز عبور فعلی با رمز عبور جدید یکسان است.")
     }
 
     def clean_password2(self):
@@ -199,7 +259,7 @@ class ChangePasswordForm(forms.Form):
                 self.error_messages["password_mismatch"],
                 code="password_mismatch",
             )
-        if password1 and password2 and password2 == old_password:
+        if password2 and old_password and password2 == old_password:
             raise ValidationError(
                 self.error_messages["duplicated_password"],
                 code="duplicated_password",

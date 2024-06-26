@@ -1,8 +1,16 @@
+# Django
 from django.urls import path, include
 
-from .views import (RegisterView, VerifyCodeView, LoginView, ChangePasswordView, ProfileSubscriptionView,
-                    UserLogoutView,
-                    ProfileView)
+# local
+from .views import (
+    RegisterView,
+    VerifyCodeView,
+    LoginView,
+    ChangePasswordView,
+    ProfileSubscriptionView,
+    UserLogoutView,
+    ProfileView
+)
 
 profile_urls = [
     path('information/', ProfileView.as_view(), name='information'),

@@ -1,6 +1,4 @@
-import datetime
-import random
-
+# Django
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,11 +6,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
-from kavenegar import *
 
-from subscriptions.models import Subscription
+# local
 from .forms import UserRegistrationForm, VerifyPhoneNumberForm, UserLoginForm, ChangePasswordForm, UserChangeForm
 from .models import OtpCode, User
+
+# python
+import datetime
+import random
+
+# third package
+from kavenegar import *
 
 
 def send_otp_code(phone_number, code):

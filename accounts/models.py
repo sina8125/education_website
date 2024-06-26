@@ -1,15 +1,20 @@
-import os.path
-import re
-from inspect import isfunction
-from os.path import join
-
+# Django
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
-from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.translation import gettext_lazy as _
 
-from accounts.validators import validate_iranian_phone_number
+# local
+from .validators import validate_iranian_phone_number
+from utils.models import AbstractCreatedUpdatedTime
+
+# Python
+import os.path
+import re
+
+# third party
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class UserManager(BaseUserManager):
@@ -48,7 +53,7 @@ class UserManager(BaseUserManager):
         return self.get(**{'phone_number': phone_number})
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin, AbstractCreatedUpdatedTime):
 
     def set_avatar_path(self, filename):
         n = 1
@@ -58,22 +63,68 @@ class User(AbstractBaseUser, PermissionsMixin):
             if previous_avatar:
                 number_of_avatar = re.match(r'^\d+_a(\d+)\.\w+$', previous_avatar).group(1)
                 n = int(number_of_avatar) + 1
-        return join('avatars', self.pk, f'{self.pk}_a{n}{file_extension}')
+        return os.path.join('avatars', self.pk, f'{self.pk}_a{n}{file_extension}')
 
-    phone_number = PhoneNumberField(region='IR', unique=True, null=False, blank=False,
-                                    validators=[validate_iranian_phone_number])
-    email = models.EmailField(max_length=255, unique=True, null=True, blank=True)
-    first_name = models.CharField(max_length=150, blank=False, null=False)
-    last_name = models.CharField(max_length=150, blank=True)
-    nick_name = models.CharField(max_length=150, blank=True)
-    avatar = models.ImageField(blank=True, upload_to=set_avatar_path)
-    birthday = models.DateField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    last_active_time = models.DateTimeField(null=True, blank=True)
-    date_joined = models.DateTimeField(default=timezone.now)
-    updated_time = models.DateTimeField(auto_now=True)
-    created_time = models.DateTimeField(auto_now_add=True)
+    phone_number = PhoneNumberField(
+        verbose_name=_('شماره تلفن'),
+        region='IR',
+        unique=True,
+        null=False,
+        blank=False,
+        validators=[validate_iranian_phone_number]
+    )
+    email = models.EmailField(
+        verbose_name=_('ایمیل'),
+        max_length=255,
+        unique=True,
+        null=True,
+        blank=True
+    )
+    first_name = models.CharField(
+        verbose_name=_('نام'),
+        max_length=150,
+        blank=False,
+        null=False
+    )
+    last_name = models.CharField(
+        verbose_name=_('نام خانوادگی'),
+        max_length=150,
+        blank=True
+    )
+    nick_name = models.CharField(
+        verbose_name=_('نام مستعار'),
+        max_length=150,
+        blank=True
+    )
+    avatar = models.ImageField(
+        verbose_name=_('عکس پروفایل'),
+        blank=True,
+        upload_to=set_avatar_path
+    )
+    birthday = models.DateField(
+        verbose_name=_('تاریخ تولد'),
+        null=True,
+        blank=True)
+    is_active = models.BooleanField(
+        verbose_name=_('فعال'),
+        default=True
+    )
+    is_staff = models.BooleanField(
+        verbose_name=_('کارمند'),
+        default=False
+    )
+    # last_active_time = models.DateTimeField(
+    #     null=True, blank=True
+    # )
+    # date_joined = models.DateTimeField(
+    #     default=timezone.now
+    # )
+    # updated_time = models.DateTimeField(
+    #     auto_now=True
+    # )
+    # created_time = models.DateTimeField(
+    #     auto_now_add=True
+    # )
 
     objects = UserManager()
 
@@ -81,8 +132,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = "user"
-        verbose_name_plural = "users"
+        verbose_name = _("کاربر")
+        verbose_name_plural = _("کاربران")
         swappable = "AUTH_USER_MODEL"
 
     def save(self, *args, **kwargs):
@@ -116,15 +167,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         return full_name.strip()
 
 
-class OtpCode(models.Model):
-    phone_number = PhoneNumberField(region='IR', null=False, blank=False)
-    code = models.PositiveSmallIntegerField()
-    confirmation = models.BooleanField(default=False)
-    created_time = models.DateTimeField(auto_now=True)
+class OtpCode(AbstractCreatedUpdatedTime):
+    phone_number = PhoneNumberField(
+        verbose_name=_('شماره تلفن'),
+        region='IR',
+        null=False,
+        blank=False
+    )
+    code = models.PositiveSmallIntegerField(
+        verbose_name=_('کد')
+    )
+    confirmation = models.BooleanField(
+        verbose_name=_('تایید شماره تلفن'),
+        default=False
+    )
 
     def __str__(self):
         return f'{self.phone_number} - {self.code} - {self.created_time}'
 
     class Meta:
-        verbose_name = 'otpcode'
-        verbose_name_plural = 'otpcodes'
+        verbose_name = _('رمز یکبار مصرف')
+        verbose_name_plural = _('رمزهای یکبار مصرف')

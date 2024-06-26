@@ -1,7 +1,4 @@
-import math
-from datetime import timedelta
-
-import jdatetime
+# Django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
@@ -10,12 +7,19 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
-from rest_framework.renderers import JSONRenderer
 
+# local
 from .forms import CommentCreateForm, CommentReplyForm
 from .models import Post, Comment, Favorite, Category
-from subscriptions.models import Subscription
 from .serializers import CommentSerializer
+from subscriptions.models import Subscription
+
+# python
+import math
+from datetime import timedelta
+
+# third party
+from rest_framework.renderers import JSONRenderer
 
 
 class PostListView(View):

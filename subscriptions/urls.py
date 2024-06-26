@@ -1,5 +1,7 @@
+# Django
 from django.urls import path
 
+# local
 from .views import PackageView, PackageDetailView
 
 urlpatterns = [

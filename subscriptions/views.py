@@ -1,9 +1,11 @@
+# Django
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from subscriptions.models import Package
+# local
+from .models import Package
 
 
 class PackageView(View):

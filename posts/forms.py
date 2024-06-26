@@ -1,6 +1,8 @@
+# Django
 from django import forms
 
-from posts.models import Comment
+# local
+from .models import Comment
 
 
 class CommentCreateForm(forms.ModelForm):
