@@ -1,8 +1,14 @@
+# ِDjango
 from django.contrib import admin
+from django.utils.html import strip_tags
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 from mptt.admin import DraggableMPTTAdmin
 
-from posts.models import Post, Category, Comment
+# local
+from .models import Post, Category, Comment
+
+# third party
+from ckeditor.widgets import CKEditorWidget
 
 
 # Register your models here.
@@ -28,7 +34,7 @@ class CommentAdmin(NestedModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('pk','description',)
+    list_display = ('pk', 'title',)
     inlines = [CommentInline]
 
 

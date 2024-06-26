@@ -18,15 +18,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d)36nz62^p@_f9w&hzt17%-)$gg%nfftzue1iz$51#m(elg-#z'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-# CSRF_TRUSTED_ORIGINS = ['']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -172,3 +163,10 @@ AZ_IRANIAN_BANK_GATEWAYS = {
     'CUSTOM_APP': 'payments',
     "IS_SAFE_GET_GATEWAY_PAYMENT": False
 }
+
+# import local settings
+try:
+    if os.environ.get('DJANGO_ENVIRONMENT'):
+        from .local_settings import *
+except Exception:
+    pass
