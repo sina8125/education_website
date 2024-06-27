@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load translate_tags %}
+
 
 {% block extra_headers %}
     <style>
@@ -80,17 +83,21 @@
         {% for package in packages %}
             <div class="card mb-4 mx-3 box-shadow">
                 <div class="card-header">
-                    <h4>{{ package.title }}</h4>
+                    <h4>{% translate_field package title %}</h4>
                 </div>
                 <div class="card-body d-flex flex-column">
-                    <h1 class="card-title pricing-card-title">{{ package.price }} تومان
+                    <h1 class="card-title pricing-card-title">{{ package.price }} {% trans "تومان" %}
                     </h1>
-                    <small class="text-muted">{{ package.duration.days }} روز</small>
-                    <span style="white-space: pre-line" class="mt-3 mb-4">{{ package.description }}</span>
+                    <small class="text-muted">{{ package.duration.days }} {% trans "روز" %}</small>
+                    <span style="white-space: pre-line" class="mt-3 mb-4">
+                        {% translate_field package description %}
+                    </span>
                 </div>
                 <a href="{{ package.get_absolute_url }}">
                     <div class="card-footer text-muted mx-auto">
-                        <button type="button" class="mt-auto align-self-end btn btn-lg btn-block btn-primary">خرید اشتراک</button>
+                        <button type="button" class="mt-auto align-self-end btn btn-lg btn-block btn-primary">
+                            {% trans "خرید اشتراک" %}
+                        </button>
                     </div>
                 </a>
             </div>

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load translate_tags %}
 
 {% block content %}
     <section class="vh-100">
@@ -7,16 +9,16 @@
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-6-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 d-flex justify-content-center">خرید
-                                اشتراک {{ package.title }}</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 d-flex justify-content-center">
+                                {% trans "خرید اشتراک" %} {% translate_field package title %}</h3>
                             <div class="row justify-content-center">
                                 <div class="col-md-6 mb-4 pb-2 text-center">
-                                    مدت اشتراک: {{ package.duration.days }} روز
+                                    {% trans "مدت اشتراک" %}: {{ package.duration.days }} {% trans "روز" %}
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <div style="white-space: pre-line" class="col-md-6 mb-4 pb-2 text-center">
-                                    {{ package.description }}
+                                    {% translate_field package description %}
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -24,7 +26,8 @@
                                     <a href="{% url 'payments:go-gateway' package.pk %}">
                                         <div class="mx-2">
                                             <button type="button"
-                                                    class="btn btn-lg btn-block btn-primary">پرداخت مبلغ {{ package.price }} تومان
+                                                    class="btn btn-lg btn-block btn-primary">
+                                                {% trans "پرداخت مبلغ" %} {{ package.price }} {% trans "تومان" %}
                                             </button>
                                         </div>
                                     </a>

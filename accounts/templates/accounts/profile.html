@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+
 
 {% block content %}
 
@@ -8,7 +10,7 @@
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-6-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">ثبت نام</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">{% trans "مشخصات کاربر" %}</h3>
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 {% if form.errors %}
@@ -23,7 +25,7 @@
                                                    class="form-control form-control-lg"
                                                    name="{{ form.first_name.name }}"
                                                    value="{{ form.first_name.value|default_if_none:'' }}"/>
-                                            <label class="form-label" for="firstName">نام</label>
+                                            <label class="form-label" for="firstName">{% trans "نام" %}</label>
                                         </div>
 
                                     </div>
@@ -33,7 +35,7 @@
                                             <input type="text" id="lastName" class="form-control form-control-lg"
                                                    name="{{ form.last_name.name }}"
                                                    value="{{ form.last_name.value|default_if_none:'' }}"/>
-                                            <label class="form-label" for="lastName">نام خانوادگی</label>
+                                            <label class="form-label" for="lastName">{% trans "نام خانوادگی" %}</label>
                                         </div>
 
                                     </div>
@@ -45,7 +47,8 @@
                                             <input type="date" name="{{ form.birthday.name }}" dir="ltr"
                                                    id="birthdayDate" class="form-control form-control-lg"
                                                    value="{{ form.birthday.value|safe|default_if_none:'' }}">
-                                            <label for="birthdayDate" class="form-label">تاریخ تولد</label>
+                                            <label for="birthdayDate"
+                                                   class="form-label">{% trans "تاریخ تولد" %}</label>
                                         </div>
 
                                     </div>
@@ -54,7 +57,7 @@
                                             <input type="email" name="{{ form.email.name }}"
                                                    id="emailAddress" class="form-control form-control-lg"
                                                    value="{{ form.email.value|default_if_none:'' }}">
-                                            <label class="form-label" for="emailAddress">ایمیل</label>
+                                            <label class="form-label" for="emailAddress">{% trans "ایمیل" %}</label>
                                         </div>
 
                                     </div>
@@ -67,14 +70,15 @@
                                             <input type="tel" name="{{ form.phone_number.name }}"
                                                    id="phoneNumber" required class="form-control form-control-lg"
                                                    value="{{ form.phone_number.value|default_if_none:'' }}">
-                                            <label class="form-label" for="phoneNumber">شماره موبایل</label>
+                                            <label class="form-label"
+                                                   for="phoneNumber">{% trans "شماره موبایل" %}</label>
                                         </div>
 
                                     </div>
                                 </div>
                                 <div class="mt-4 pt-2">
                                     <input data-mdb-ripple-init class="btn btn-primary btn-lg" type="submit"
-                                           value="تایید"/>
+                                           value="{% trans "تایید" %}"/>
                                 </div>
 
                             </form>

@@ -1,9 +1,9 @@
 # Django
 from django.contrib import messages
-from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 # local
 from .models import Payment
@@ -35,14 +35,14 @@ def go_to_gateway_view(request, package_id):
         # در صورت تمایل اتصال این رکورد به رکورد فاکتور یا هر چیزی که بعدا بتوانید ارتباط بین محصول یا خدمات را با این
         # پرداخت برقرار کنید.
         bank_record = bank.ready()
-        Payment.objects.create(user=request.user, package=package, bank=bank_record, price=package.price)
+        Payment.objects.create(user=request.user, package=package, bank=bank_record, amount=package.price)
 
         # هدایت کاربر به درگاه بانک
         return bank.redirect_gateway()
     except AZBankGatewaysException as e:
         print('test')
         # TODO: redirect to failed page.
-        messages.error(request, 'اتصال به درگاه با مشکل مواجه شد', 'danger')
+        messages.error(request, _('اتصال به درگاه با مشکل مواجه شد'), 'danger')
         return redirect('subscriptions:package_list', )
 
 

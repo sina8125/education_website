@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
+{% load translate_tags %}
 
 {% block extra_headers %}
     <link rel="stylesheet" href="{% static 'posts/css/style.css' %}">
@@ -10,7 +11,8 @@
 {% block content %}
     <div class="pt-2">
         <div class="row top-header-image vlog-cover-bg">
-            <img src="{{ post.thumbnail.url }}" class="img-fluid" style="border-radius: 30px;" alt="{{ post.title }}">
+            <img src="{{ post.thumbnail.url }}" class="img-fluid" style="border-radius: 30px;"
+                 alt="{% translate_field post title %}">
         </div>
         <div class="row post-sections">
             <div class="main-content col-lg-8  col-12" style="padding-left: 60px">
@@ -19,7 +21,7 @@
                         <img style="width: 50px; position: relative"
                              src="{% static 'posts/premium.png' %}">
                     {% endif %}
-                    {{ post.title }}
+                    {% translate_field post title %}
                     {% if request.user.is_authenticated %}
                         <a href="{% url 'post:add_favorite' post.slug %}">
                             {% if is_favorite %}
@@ -34,7 +36,8 @@
                 <div class="row">
                     <div class="tab_container">
                         <section id="content" class="tab-content">
-                            {{ post.description|safe }}
+                            {% translate_field post description %}
+                            {#{{ post.description|safe }}#}
                         </section>
 
                     </div>
@@ -43,7 +46,7 @@
                      style="display: flex;flex-direction: column;align-items:center;border-top: 2px solid #d0d0d0">
                     {% if request.user.is_authenticated %}
                         <div style="align-items: center">
-                            <p style="align-self: center">نظر خود را بنویسید</p>
+                            <p style="align-self: center">{% trans "نظر خود را بنویسید" %}</p>
                         </div>
                         <form action="" method="post">
                             {% csrf_token %}
@@ -54,13 +57,13 @@
                                     {{ field }}
                                 {% endfor %}
                                 <div style="direction: ltr">
-                                    <input type="submit" value="ثبت" class="btn btn-primary my-3 w-25"
+                                    <input type="submit" value="{% trans "ثبت" %}" class="btn btn-primary my-3 w-25"
                                            style="border-radius: 10px;">
                                 </div>
                             </div>
                         </form>
                     {% else %}
-                        <p class="alert alert-danger h4">برای ثبت نظر لطفا وارد شوید</p>
+                        <p class="alert alert-danger h4">{% trans "برای ثبت نظر لطفا وارد شوید" %}</p>
                     {% endif %}
                 </div>
                 <div id="comment-div"></div>
@@ -68,7 +71,7 @@
             <div class="sidebar mt-4 col-lg-4 col-12">
                 <div class="related-posts desktop">
                     <div class="section-title mx-3">
-                        <h3>پست های مشابه</h3>
+                        <h3>{% trans "پست های مشابه" %}</h3>
                     </div>
                     <div class="card-holder p-4" style="display: flex">
                         {% for similar_post in similar_posts %}
@@ -76,10 +79,10 @@
                                style="text-decoration:none;border-radius: 15px; width: 100%; overflow: hidden">
                                 <div class="card-image">
                                     <img src="{{ similar_post.thumbnail.url }}" class="img-fluid"
-                                         alt="{{ similar_post.title }}">
+                                         alt="{% translate_field similar_post title %}">
                                 </div>
                                 <div class="card-body">
-                                    <span class="card-title" style="font-size: 20px">{{ similar_post.title }}</span>
+                                    <span class="card-title" style="font-size: 20px">{% translate_field similar_post title %}</span>
                                     {% if similar_post.is_premium %}
                                         <div style="position:absolute; bottom: 5px; left: 5px">
                                             <img style="width: 35px; height: auto"
@@ -120,7 +123,7 @@
              class="card-header">${comment.author} | ${comment.solar_show_date}
             {% if request.user.is_authenticated %}
                 <span class="btn btn-primary"
-                      onclick='add_reply_form(this,${comment.pk});'>پاسخ</span>
+                      onclick='add_reply_form(this,${comment.pk});'>{% trans "پاسخ" %}</span>
 
             {% endif %}
         </div>
@@ -155,28 +158,26 @@
             node.innerHTML = `
                 {% if request.user.is_authenticated %}
                     <div style="align-items: center">
-                        <p style="align-self: center">پاسخ خود را بنویسید</p>
+                        <p style="align-self: center">{% trans "پاسخ خود را بنویسید" %}</p>
                     </div>
                     <form action="${url}" method="post">
                         {% csrf_token %}
-
                         <div>
-
                             {% for field in reply_form %}
                                 {{ field }}
                             {% endfor %}
                             <div style="direction: ltr">
-                                <input type="submit" value="ثبت" class="btn btn-primary my-3 w-25"
+                                <input type="submit" value="{% trans "ثبت" %}" class="btn btn-primary my-3 w-25"
                                        style="border-radius: 10px;">
                             </div>
                         </div>
                     </form>
                 {% else %}
-                    <p class="alert alert-danger">برای نوشتن نظر باید وارد شوید</p>
+                    <p class="alert alert-danger">{% trans "برای نوشتن نظر باید وارد شوید" %}</p>
                 {% endif %}
             `;
             document.getElementById(`comment-${comment_pk}`).appendChild(node);
-            res_element.innerHTML = 'لغو پاسخ';
+            res_element.innerHTML = "{% trans "لغو پاسخ" %}";
             res_element.setAttribute('onClick', `remove_reply_form(this,'${comment_pk}')`);
 
         }
@@ -186,7 +187,7 @@
             const form_div = comment.querySelector('#reply_form_div');
             if (form_div) {
                 form_div.remove();
-                res_element.innerHTML = 'پاسخ';
+                res_element.innerHTML = "{% trans "پاسخ" %}";
                 res_element.setAttribute('onClick', `add_reply_form(this,'${comment_pk}')`);
             }
         }
