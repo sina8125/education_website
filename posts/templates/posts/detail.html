@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load translate_tags %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block extra_headers %}
     <link rel="stylesheet" href="{% static 'posts/css/style.css' %}">
@@ -81,8 +82,9 @@
                                     <img src="{{ similar_post.thumbnail.url }}" class="img-fluid"
                                          alt="{% translate_field similar_post title %}">
                                 </div>
-                                <div class="card-body">
-                                    <span class="card-title" style="font-size: 20px">{% translate_field similar_post title %}</span>
+                                <div class="card-body text-center">
+                                    <span class="card-title"
+                                          style="font-size: 20px; display: block; text-align: center">{% translate_field similar_post title %}</span>
                                     {% if similar_post.is_premium %}
                                         <div style="position:absolute; bottom: 5px; left: 5px">
                                             <img style="width: 35px; height: auto"
@@ -119,8 +121,14 @@
             } else {
                 comment_div = '<div class="card mb-4">'
             }
-            comment_div += `<div style="display:flex;gap: 15px; align-items: center"
-             class="card-header">${comment.author} | ${comment.solar_show_date}
+            if ("{{ LANGUAGE_CODE }}".includes('fa')) {
+                comment_div += `<div style="display:flex;gap: 15px; align-items: center"
+             class="card-header">${comment.author} | ${comment.solar_show_date}`
+            } else {
+                comment_div += `<div style="display:flex;gap: 15px; align-items: center"
+             class="card-header"><div><span class="m-0 p-0" dir="rtl">${comment.author}</span> | ${comment.show_date}</div>`
+            }
+            comment_div += `
             {% if request.user.is_authenticated %}
                 <span class="btn btn-primary"
                       onclick='add_reply_form(this,${comment.pk});'>{% trans "پاسخ" %}</span>

@@ -12,7 +12,7 @@ class GetTranslatedFieldNode(template.Node):
     def render(self, context):
         instance = self.instance.resolve(context)
         current_language = get_language()
-        field_name_translated = f"{self.field_name}_en" if current_language != 'fa-IR' else self.field_name
+        field_name_translated = f"{self.field_name}_en" if current_language.lower() != 'fa-ir' else self.field_name
         return getattr(instance, field_name_translated) or ""
 
 

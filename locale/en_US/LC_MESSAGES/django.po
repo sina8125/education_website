@@ -1,0 +1,460 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-27 12:28+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: accounts/apps.py:8
+msgid "حساب ها"
+msgstr "accounts"
+
+#: accounts/forms.py:18 accounts/forms.py:70 accounts/forms.py:116
+#: accounts/forms.py:168 accounts/templates/accounts/login.html:42
+#: accounts/templates/accounts/register.html:90
+msgid "رمز عبور"
+msgstr "password"
+
+#: accounts/forms.py:22 accounts/forms.py:121
+#: accounts/templates/accounts/register.html:100
+msgid "تایید رمز عبور"
+msgstr "Confirm password"
+
+#: accounts/forms.py:27 accounts/forms.py:127 accounts/forms.py:249
+msgid "دو رمز عبور وارد شده مطابقت ندارد."
+msgstr "The two passwords entered do not match."
+
+#: accounts/forms.py:94 accounts/models.py:84
+#: accounts/templates/accounts/profile.html:28
+#: accounts/templates/accounts/register.html:32
+msgid "نام"
+msgstr "name"
+
+#: accounts/forms.py:98 accounts/models.py:90
+#: accounts/templates/accounts/profile.html:38
+#: accounts/templates/accounts/register.html:42
+msgid "نام خانوادگی"
+msgstr "last name"
+
+#: accounts/forms.py:102 accounts/models.py:77
+#: accounts/templates/accounts/profile.html:60
+#: accounts/templates/accounts/register.html:65
+msgid "ایمیل"
+msgstr "email"
+
+#: accounts/forms.py:107 accounts/models.py:105
+#: accounts/templates/accounts/profile.html:51
+#: accounts/templates/accounts/register.html:56
+msgid "تاریخ تولد"
+msgstr "Date of birth"
+
+#: accounts/forms.py:111 accounts/forms.py:160 accounts/models.py:69
+#: accounts/models.py:172 accounts/templates/accounts/login.html:31
+#: accounts/templates/accounts/register.html:78
+msgid "شماره تلفن"
+msgstr "phone number"
+
+#: accounts/forms.py:154 accounts/templates/accounts/verify.html:33
+msgid "کد تایید"
+msgstr "Verification code"
+
+#: accounts/forms.py:229 accounts/templates/accounts/change_password.html:27
+msgid "رمز عبور فعلی"
+msgstr "Current password"
+
+#: accounts/forms.py:234 accounts/templates/accounts/change_password.html:39
+msgid "رمز عبور جدید"
+msgstr "New password"
+
+#: accounts/forms.py:239 accounts/templates/accounts/change_password.html:48
+msgid "تایید رمز عبور جدید"
+msgstr "Confirm new password"
+
+#: accounts/forms.py:248
+msgid "رمز عبور فعلی اشتباه وارد شده است. لطفا دوباره وارد کنید."
+msgstr "The current password was entered incorrectly. Please enter again."
+
+#: accounts/forms.py:250
+msgid "رمز عبور فعلی با رمز عبور جدید یکسان است."
+msgstr "The current password is the same as the new password."
+
+#: accounts/models.py:95
+msgid "نام مستعار"
+msgstr "Alias"
+
+#: accounts/models.py:100
+msgid "عکس پروفایل"
+msgstr "Profile picture"
+
+#: accounts/models.py:109
+msgid "فعال"
+msgstr "active"
+
+#: accounts/models.py:113
+msgid "کارمند"
+msgstr "Employee"
+
+#: accounts/models.py:135 payments/models.py:17 posts/models.py:186
+#: subscriptions/models.py:70
+msgid "کاربر"
+msgstr "user"
+
+#: accounts/models.py:136
+msgid "کاربران"
+msgstr "users"
+
+#: accounts/models.py:178
+msgid "کد"
+msgstr "code"
+
+#: accounts/models.py:181
+msgid "تایید شماره تلفن"
+msgstr "Confirm phone number"
+
+#: accounts/models.py:189
+msgid "رمز یکبار مصرف"
+msgstr "One-time password"
+
+#: accounts/models.py:190
+msgid "رمزهای یکبار مصرف"
+msgstr "One-time passwords"
+
+#: accounts/templates/accounts/change_password.html:11
+msgid "تغییر رمز عبور"
+msgstr "change Password"
+
+#: accounts/templates/accounts/change_password.html:56 templates/base.html:132
+msgid "تغییر رمز"
+msgstr "Change Password"
+
+#: accounts/templates/accounts/login.html:16
+#: accounts/templates/accounts/login.html:51
+msgid "ورود"
+msgstr "log in"
+
+#: accounts/templates/accounts/profile.html:13 templates/base.html:127
+msgid "مشخصات کاربر"
+msgstr "User profile"
+
+#: accounts/templates/accounts/profile.html:74
+msgid "شماره موبایل"
+msgstr "phone number"
+
+#: accounts/templates/accounts/profile.html:81
+#: accounts/templates/accounts/verify.html:40
+msgid "تایید"
+msgstr "confirmation"
+
+#: accounts/templates/accounts/profile_subscription.html:12
+msgid "اشتراک باقی مانده"
+msgstr "Remaining subscription"
+
+#: accounts/templates/accounts/profile_subscription.html:16
+#, python-format
+msgid "از اشتراک شما %(remaining)s باقی مانده است"
+msgstr "Your subscription has %(remaining)s left"
+
+#: accounts/templates/accounts/profile_subscription.html:19
+msgid "اشتراک فعالی برای حساب شما وجود ندارد"
+msgstr "There are no active subscriptions for your account"
+
+#: accounts/templates/accounts/register.html:17
+msgid "ثبت نام"
+msgstr "Register"
+
+#: accounts/templates/accounts/register.html:108
+msgid "ارسال کد تایید"
+msgstr "Send verification code"
+
+#: accounts/templates/accounts/verify.html:17
+msgid "تایید شماره موبایل"
+msgstr "Mobile number verification"
+
+#: accounts/validators.py:15
+msgid "لطفا یک شماره تلفن معتبر ایرانی وارد کنید."
+msgstr "Please enter a valid Iranian phone number."
+
+#: accounts/validators.py:25
+msgid "شماره تلفن وارد شده در حال حاضر وجود دارد."
+msgstr "The entered phone number already exists."
+
+#: accounts/validators.py:35
+msgid "ایمیل وارد شده در حال حاضر وجود دارد."
+msgstr "The email entered already exists."
+
+#: accounts/views.py:206
+#, python-brace-format
+msgid "{days} روز و {H} ساعت و {M} دقیقه"
+msgstr "{days} days and {H} hours and {M} minutes"
+
+#: education/settings.py:119
+msgid "انگلیسی"
+msgstr "English"
+
+#: education/settings.py:120
+msgid "فارسی"
+msgstr "Farsi"
+
+#: payments/apps.py:8 payments/models.py:36
+msgid "پرداخت ها"
+msgstr "Payments"
+
+#: payments/models.py:22 subscriptions/models.py:50 subscriptions/models.py:62
+msgid "بسته"
+msgstr "Closed"
+
+#: payments/models.py:27
+msgid "بانک"
+msgstr "Bank"
+
+#: payments/models.py:31
+msgid "مبلغ"
+msgstr "Amount"
+
+#: payments/models.py:35 subscriptions/models.py:78
+msgid "پرداخت"
+msgstr "the payment"
+
+#: payments/templates/payments/callback.html:13
+#: subscriptions/templates/subscriptions/package.html:99
+#: subscriptions/templates/subscriptions/package_detail.html:13
+msgid "خرید اشتراک"
+msgstr "Buy a subscription"
+
+#: payments/templates/payments/callback.html:17
+msgid "پرداخت با موفقیت انجام شد"
+msgstr "Payment was successful"
+
+#: payments/templates/payments/callback.html:19
+msgid ""
+"فرایند پرداخت با شکست مواجه شد. در صورت برداشت از حساب ظرف ۴۸ ساعت آینده "
+"مبلغ به حساب شما بازگشت داده میشود."
+msgstr ""
+"The payment process failed. In case of withdrawal from the account within "
+"the next 48 hours, the amount will be returned to your account."
+
+#: payments/templates/payments/callback.html:29
+msgid "بازگشت به صفحه اصلی"
+msgstr "Return to main page"
+
+#: payments/views.py:45
+msgid "اتصال به درگاه با مشکل مواجه شد"
+msgstr "There was a problem connecting to the payment gateway"
+
+#: posts/apps.py:8 posts/models.py:116
+msgid "پست ها"
+msgstr "posts"
+
+#: posts/models.py:22
+msgid "نام فارسی"
+msgstr "Persian Name"
+
+#: posts/models.py:26
+msgid "نام انگلیسی"
+msgstr "English name"
+
+#: posts/models.py:30 posts/models.py:73
+msgid "نشانی"
+msgstr "address"
+
+#: posts/models.py:36
+msgid "دسته بندی والد"
+msgstr "Parent category"
+
+#: posts/models.py:47 posts/models.py:107 templates/base.html:81
+msgid "دسته بندی"
+msgstr "Category"
+
+#: posts/models.py:48
+msgid "دسته بندی ها"
+msgstr "categories"
+
+#: posts/models.py:65 subscriptions/models.py:14
+msgid "عنوان فارسی"
+msgstr "Persian title"
+
+#: posts/models.py:69 subscriptions/models.py:19
+msgid "عنوان انگلیسی"
+msgstr "English title"
+
+#: posts/models.py:78
+msgid "تصویر اصلی"
+msgstr "Main picture"
+
+#: posts/models.py:83 posts/models.py:134
+msgid "نویسنده"
+msgstr "the writer"
+
+#: posts/models.py:88 posts/models.py:151
+msgid "وضعیت دسترسی"
+msgstr "Access status"
+
+#: posts/models.py:92
+msgid "پست اشتراکی"
+msgstr "Shared post"
+
+#: posts/models.py:96 subscriptions/models.py:24
+msgid "توضیحات فارسی"
+msgstr "Persian description"
+
+#: posts/models.py:101 subscriptions/models.py:29
+msgid "توضیحات انگلیسی"
+msgstr "English description"
+
+#: posts/models.py:115 posts/models.py:128 posts/models.py:180
+msgid "پست"
+msgstr "Post"
+
+#: posts/models.py:140
+msgid "پاسخ به"
+msgstr "Answer to"
+
+#: posts/models.py:147
+msgid "نوع کامنت"
+msgstr "Comment type"
+
+#: posts/models.py:155
+msgid "متن"
+msgstr "Text"
+
+#: posts/models.py:160
+msgid "کامنت"
+msgstr "comment"
+
+#: posts/models.py:161
+msgid "کامنت ها"
+msgstr "Comments"
+
+#: posts/models.py:192
+msgid "علاقه مندی"
+msgstr "interest"
+
+#: posts/models.py:193
+msgid "علاقه مندی ها"
+msgstr "Favorites"
+
+#: posts/templates/posts/detail.html:49
+msgid "نظر خود را بنویسید"
+msgstr "Write your comment"
+
+#: posts/templates/posts/detail.html:60 posts/templates/posts/detail.html:170
+msgid "ثبت"
+msgstr "confirm"
+
+#: posts/templates/posts/detail.html:66
+msgid "برای ثبت نظر لطفا وارد شوید"
+msgstr "Please log in to post a comment"
+
+#: posts/templates/posts/detail.html:74
+msgid "پست های مشابه"
+msgstr "Similar posts"
+
+#: posts/templates/posts/detail.html:126 posts/templates/posts/detail.html:190
+msgid "پاسخ"
+msgstr "reply"
+
+#: posts/templates/posts/detail.html:161
+msgid "پاسخ خود را بنویسید"
+msgstr "Write your answer"
+
+#: posts/templates/posts/detail.html:176
+msgid "برای نوشتن نظر باید وارد شوید"
+msgstr "You must be logged in to write a comment"
+
+#: posts/templates/posts/detail.html:180
+msgid "لغو پاسخ"
+msgstr "Cancel reply"
+
+#: subscriptions/apps.py:8 subscriptions/models.py:95
+msgid "اشتراک ها"
+msgstr "Subscriptions"
+
+#: subscriptions/models.py:34
+msgid "وضعیت بسته"
+msgstr "closed status"
+
+#: subscriptions/models.py:38
+msgid "قیمت"
+msgstr "Price"
+
+#: subscriptions/models.py:41
+msgid "مدت زمان"
+msgstr "duration time"
+
+#: subscriptions/models.py:51
+msgid "بسته ها"
+msgstr "Packages"
+
+#: subscriptions/models.py:84
+msgid "زمان شروع"
+msgstr "start time"
+
+#: subscriptions/models.py:88
+msgid "زمان پایان"
+msgstr "expire time"
+
+#: subscriptions/models.py:94 templates/base.html:130
+msgid "اشتراک"
+msgstr "Subscription"
+
+#: subscriptions/models.py:121
+msgid "اشتراک {} برای کاربر {}"
+msgstr "subscription {} for user {}"
+
+#: subscriptions/templates/subscriptions/package.html:89
+#: subscriptions/templates/subscriptions/package_detail.html:30
+msgid "تومان"
+msgstr "Toman"
+
+#: subscriptions/templates/subscriptions/package.html:91
+#: subscriptions/templates/subscriptions/package_detail.html:16
+msgid "روز"
+msgstr "Day"
+
+#: subscriptions/templates/subscriptions/package_detail.html:16
+msgid "مدت اشتراک"
+msgstr "Subscription period"
+
+#: subscriptions/templates/subscriptions/package_detail.html:30
+msgid "پرداخت مبلغ"
+msgstr "Pay the amount"
+
+#: templates/base.html:62
+msgid "صفحه اصلی"
+msgstr "Main Page"
+
+#: templates/base.html:65
+msgid "بسته های اشتراکی"
+msgstr "Subscription packages"
+
+#: templates/base.html:124
+msgid "پروفایل"
+msgstr "profile"
+
+#: templates/base.html:129
+msgid "پست های مورد علاقه"
+msgstr "Favorite posts"
+
+#: templates/base.html:133
+msgid "خروج"
+msgstr "Exit"
+
+#: utils/models.py:7
+msgid "زمان ایجاد"
+msgstr "Creation time"
+
+#: utils/models.py:11
+msgid "آخرین تغییر"
+msgstr "The last change"

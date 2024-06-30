@@ -7,13 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <section class="vh-100">
+    <section class="vh-100" dir="rtl">
         <div class="container py-5 h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-6-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 d-flex justify-content-center">{% trans "ورود" %}ورود</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 d-flex justify-content-center">{% trans "ورود" %}</h3>
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 {% if login_form.errors %}
@@ -36,7 +36,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="password" name="{{ login_form.password.name }}"
+                                            <input dir="ltr" type="password" name="{{ login_form.password.name }}"
                                                    id="password" required class="form-control form-control-lg"
                                                    value="">
                                             <label class="form-label" for="password">{% trans "رمز عبور" %}</label>
@@ -47,7 +47,9 @@
                                 <div class="row justify-content-center">
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="mt-4 pt-2 d-flex justify-content-center">
-                                            <input data-mdb-ripple-init class="btn btn-primary btn-lg" type="submit"
+                                            <input data-mdb-ripple-init
+                                                   class="btn btn-primary btn-lg d-flex justify-content-center"
+                                                   type="submit"
                                                    value="{% trans "ورود" %}"/>
                                         </div>
                                     </div>

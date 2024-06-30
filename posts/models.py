@@ -173,6 +173,10 @@ class Comment(AbstractCreatedUpdatedTime):
     def solar_show_date(self):
         return self.solar_date.strftime('%d %B %Y')
 
+    @property
+    def show_date(self):
+        return self.created_time.strftime('%d %B %Y')
+
 
 class Favorite(AbstractCreatedUpdatedTime):
     post = models.ForeignKey(

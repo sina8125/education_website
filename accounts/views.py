@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.utils.translation import gettext_lazy as _
 
 # local
 from .forms import UserRegistrationForm, VerifyPhoneNumberForm, UserLoginForm, ChangePasswordForm, UserChangeForm
@@ -203,7 +204,7 @@ class ProfileSubscriptionView(View):
         subscriptions = user.subscriptions.filter(expire_time__gt=timezone.now()).order_by('expire_time')
         if subscriptions.exists():
             subscriptions = subscriptions[0]
-            remaining_time = "{days} روز و {H} ساعت و {M} دقیقه".format(days=subscriptions.remaining_time.days,
+            remaining_time = _("{days} روز و {H} ساعت و {M} دقیقه").format(days=subscriptions.remaining_time.days,
                                                                         H=(
                                                                                 subscriptions.remaining_time.seconds // 3600),
                                                                         M=(

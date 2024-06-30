@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from django.utils.translation import gettext_lazy as _
+
 import os
 from pathlib import Path
 
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'utils.middlewares.LanguageMiddleware'
 ]
 
 ROOT_URLCONF = 'education.urls'
@@ -105,13 +108,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
 USE_TZ = True
+
+LANGUAGES = [
+    ('en-US', _('انگلیسی')),
+    ('fa-IR', _('فارسی')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # مسیر فایل‌های ترجمه
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
