@@ -1,0 +1,12 @@
+{% extends 'admin/base_site.html' %}
+
+{% load static %}
+
+{% block extrastyle %}{{ block.super }}
+    <style>
+        #user-tools {
+            @extend #user-tools;
+            font-size: 0.938rem;
+        }
+    </style>
+{% endblock %}

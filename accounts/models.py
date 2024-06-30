@@ -152,12 +152,15 @@ class User(AbstractBaseUser, PermissionsMixin, AbstractCreatedUpdatedTime):
     def get_nickname(self):
         return self.nick_name or self.get_full_name()
 
+    def get_short_name(self):
+        return str(self)
+
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
 
     def __str__(self):
-        return self.get_full_name() or self.email or str(self.phone_number)
+        return self.get_full_name() or self.email or str(self.phone_number).replace(' ', '')
 
     def get_full_name(self):
         """

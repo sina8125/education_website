@@ -205,7 +205,7 @@ msgstr "English"
 
 #: education/settings.py:120
 msgid "فارسی"
-msgstr "Farsi"
+msgstr "Persian"
 
 #: payments/apps.py:8 payments/models.py:36
 msgid "پرداخت ها"

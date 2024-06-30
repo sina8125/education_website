@@ -40,7 +40,6 @@ def go_to_gateway_view(request, package_id):
         # هدایت کاربر به درگاه بانک
         return bank.redirect_gateway()
     except AZBankGatewaysException as e:
-        print('test')
         # TODO: redirect to failed page.
         messages.error(request, _('اتصال به درگاه با مشکل مواجه شد'), 'danger')
         return redirect('subscriptions:package_list', )

@@ -10,3 +10,4 @@ az-iranian-bank-gateways==2.0.5
 jdatetime==5.0.0
 djangorestframework==3.15.1
 kavenegar==1.1.2
+django-admin-interface==0.28.8
