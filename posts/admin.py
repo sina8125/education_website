@@ -34,7 +34,7 @@ class CommentAdmin(NestedModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title',)
+    list_display = ('pk', 'title', 'title_en')
     inlines = [CommentInline]
 
 

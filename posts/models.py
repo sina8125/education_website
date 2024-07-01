@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 # local
 from accounts.models import User
 from utils.models import AbstractCreatedUpdatedTime
+from utils.utils import translate_field
 
 # python
 from os.path import join, splitext
@@ -49,8 +50,8 @@ class Category(MPTTModel):
 
     def __str__(self):
         if self.parent:
-            return f'{self.parent}_{self.name}'
-        return self.name
+            return f'{self.parent}_{translate_field(self, "name")}'
+        return translate_field(self, 'name')
 
     def get_absolute_url(self):
         return reverse('post:category_filter:post-list', args=[self.slug, ])
@@ -116,7 +117,7 @@ class Post(AbstractCreatedUpdatedTime):
         verbose_name_plural = _('پست ها')
 
     def __str__(self):
-        return self.title
+        return translate_field(self, 'title')
 
     def get_absolute_url(self):
         return reverse('posts:post_detail', args=[self.slug, ])

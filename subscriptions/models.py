@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 # local
 from accounts.models import User
 from utils.models import AbstractCreatedUpdatedTime
+from utils.utils import translate_field
 
 
 class Package(AbstractCreatedUpdatedTime):
@@ -44,7 +45,7 @@ class Package(AbstractCreatedUpdatedTime):
     )
 
     def __str__(self):
-        return self.title
+        return translate_field(self, 'title')
 
     class Meta:
         verbose_name = _('بسته')

@@ -26,8 +26,8 @@ def send_otp_code(phone_number, code):
         params = {
             'sender': '',
             'receptor': str(phone_number).replace(' ', ''),
-            'message': f'کد تایید شما:\n'
-                       f'{code}'
+            'message': _(f'کد تایید شما:\n'
+                         f'{code}')
         }
         response = api.sms_send(params)
     except Exception as e:
@@ -65,10 +65,10 @@ class RegisterView(View):
             # try:
             #     send_otp_code(form.cleaned_data['phone_number'], random_code)
             # except Exception as e:
-            #     messages.error(request, 'ارسال کد با مشکل مواجه شد', 'danger')
+            #     messages.error(request, _('ارسال کد با مشکل مواجه شد'), 'danger')
             #     return render(request, 'accounts/register.html', {'register_form': form})
 
-            messages.success(request, 'کد تایید ارسال شد', 'success')
+            messages.success(request, _('کد تایید ارسال شد'), 'success')
             return redirect('accounts:verify_code')
         return render(request, 'accounts/register.html', {'register_form': form})
 
@@ -101,15 +101,15 @@ class VerifyCodeView(View):
                     user.phone_number = phone_number
                     user.save()
                     request.session['user_info']['previous_phone_number'] = phone_number
-                    messages.success(request, 'تغییرات با موفقیت ثبت شد', 'success')
+                    messages.success(request, _('تغییرات با موفقیت ثبت شد'), 'success')
                     return redirect('accounts:profile:information')
                 else:
                     User.objects.create_user(phone_number=phone_number, email=email, first_name=first_name,
                                              last_name=last_name, birthday=birthday, password=password)
-                    messages.success(request, 'ثبت نام با موفقیت انجام شد', 'success')
+                    messages.success(request, _('ثبت نام با موفقیت انجام شد'), 'success')
                     return redirect('accounts:login')
             else:
-                messages.error(request, 'کد تایید نادرست است', 'danger')
+                messages.error(request, _('کد تایید نادرست است'), 'danger')
                 return redirect('accounts:verify_code')
         return render(request, 'accounts/verify.html', {'verify_form': form})
 
@@ -125,9 +125,9 @@ class LoginView(View):
             user = authenticate(request, phone_number=cd['phone_number'], password=cd['password'])
             if user is not None and user.is_active:
                 login(request, user)
-                messages.success(request, 'با موفقیت وارد شدید', 'info')
+                messages.success(request, _('با موفقیت وارد شدید'), 'info')
                 return redirect('post:home:post-list')
-            messages.error(request, 'شماره موبایل یا پسورد نادرست است', 'danger')
+            messages.error(request, _('شماره موبایل یا پسورد نادرست است'), 'danger')
         return render(request, 'accounts/login.html', {'login_form': form})
 
 
@@ -164,13 +164,13 @@ class ProfileView(View):
                 # try:
                 #     send_otp_code(form.cleaned_data['phone_number'], random_code)
                 # except Exception as e:
-                #     messages.error(request, 'ارسال کد با مشکل مواجه شد', 'danger')
+                #     messages.error(request, _('ارسال کد با مشکل مواجه شد'), 'danger')
                 #     return render(request, 'accounts/profile.html', {'form': form})
-                messages.success(request, 'کد تایید ارسال شد', 'success')
+                messages.success(request, _('کد تایید ارسال شد'), 'success')
                 return redirect('accounts:verify_code')
             else:
                 form.save()
-                messages.success(request, 'تغییرات اعمال شد', 'success')
+                messages.success(request, _('تغییرات اعمال شد'), 'success')
                 return redirect('accounts:profile:information')
         return render(request, 'accounts/profile.html', {'form': form})
 
@@ -190,10 +190,10 @@ class ChangePasswordView(View):
                 password = cd['password2']
                 user.set_password(password)
                 user.save()
-                messages.success(request, 'رمز عبور شما تغییر کرد\nلطفا مجدد وارد شوید', 'success')
+                messages.success(request, _('رمز عبور شما تغییر کرد\nلطفا مجدد وارد شوید'), 'success')
                 return redirect('post:home:post-list')
             return render(request, 'accounts/change_password.html', {'form': form})
-        messages.error(request, 'برای تغییر رمز ابتدا وارد شوید', 'danger')
+        messages.error(request, _('برای تغییر رمز ابتدا وارد شوید'), 'danger')
         return redirect('post:home:post-list')
 
 
@@ -205,10 +205,10 @@ class ProfileSubscriptionView(View):
         if subscriptions.exists():
             subscriptions = subscriptions[0]
             remaining_time = _("{days} روز و {H} ساعت و {M} دقیقه").format(days=subscriptions.remaining_time.days,
-                                                                        H=(
-                                                                                subscriptions.remaining_time.seconds // 3600),
-                                                                        M=(
-                                                                                  subscriptions.remaining_time.seconds % 3600) // 60)
+                                                                           H=(
+                                                                                   subscriptions.remaining_time.seconds // 3600),
+                                                                           M=(
+                                                                                     subscriptions.remaining_time.seconds % 3600) // 60)
             return render(request, 'accounts/profile_subscription.html', {'remaining': remaining_time})
         else:
             return render(request, 'accounts/profile_subscription.html')
@@ -218,5 +218,5 @@ class UserLogoutView(View):
     @method_decorator(login_required)
     def get(self, request):
         logout(request)
-        messages.success(request, 'خروج با موفقیت انجام شد', 'success')
+        messages.success(request, _('خروج با موفقیت انجام شد'), 'success')
         return redirect('post:home:post-list')

@@ -7,7 +7,7 @@ from .models import Package, Subscription
 
 @admin.register(Package)
 class PackageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'is_active', 'price', 'duration']
+    list_display = ['title', 'title_en', 'is_active', 'price', 'duration']
 
 
 @admin.register(Subscription)
