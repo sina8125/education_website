@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 09:05+0330\n"
+"POT-Creation-Date: 2024-07-01 10:39+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgid "کارمند"
 msgstr "Employee"
 
 #: accounts/models.py:135 payments/models.py:17 posts/models.py:191
-#: subscriptions/models.py:72
+#: subscriptions/models.py:71
 msgid "کاربر"
 msgstr "user"
 
@@ -256,7 +256,7 @@ msgstr "English"
 msgid "پرداخت ها"
 msgstr "Payments"
 
-#: payments/models.py:22 subscriptions/models.py:52 subscriptions/models.py:64
+#: payments/models.py:22 subscriptions/models.py:51 subscriptions/models.py:63
 msgid "بسته"
 msgstr "Package"
 
@@ -268,7 +268,7 @@ msgstr "Bank"
 msgid "مبلغ"
 msgstr "Amount"
 
-#: payments/models.py:35 subscriptions/models.py:80
+#: payments/models.py:35 subscriptions/models.py:79
 msgid "پرداخت"
 msgstr "the payment"
 
@@ -326,11 +326,11 @@ msgstr "Category"
 msgid "دسته بندی ها"
 msgstr "categories"
 
-#: posts/models.py:66 subscriptions/models.py:16
+#: posts/models.py:66 subscriptions/models.py:15
 msgid "عنوان فارسی"
 msgstr "Persian title"
 
-#: posts/models.py:70 subscriptions/models.py:21
+#: posts/models.py:70 subscriptions/models.py:20
 msgid "عنوان انگلیسی"
 msgstr "English title"
 
@@ -350,11 +350,11 @@ msgstr "Access status"
 msgid "پست اشتراکی"
 msgstr "Shared post"
 
-#: posts/models.py:97 subscriptions/models.py:26
+#: posts/models.py:97 subscriptions/models.py:25
 msgid "توضیحات فارسی"
 msgstr "Persian description"
 
-#: posts/models.py:102 subscriptions/models.py:31
+#: posts/models.py:102 subscriptions/models.py:30
 msgid "توضیحات انگلیسی"
 msgstr "English description"
 
@@ -422,39 +422,63 @@ msgstr "You must be logged in to write a comment"
 msgid "لغو پاسخ"
 msgstr "Cancel reply"
 
-#: subscriptions/apps.py:8 subscriptions/models.py:97
+#: posts/views.py:59
+msgid "برای مشاهده این پست لطفا وارد شوید"
+msgstr "Please login to view this post"
+
+#: posts/views.py:64
+msgid "برای مشاهده این پست به اشتراک نیاز دارید"
+msgstr "You need a subscription to view this post"
+
+#: posts/views.py:88
+msgid "نظر شما ثبت شد"
+msgstr "Your comment was recorded"
+
+#: posts/views.py:105
+msgid "پاسخ شما ثبت شد"
+msgstr "Your answer has been recorded"
+
+#: posts/views.py:116
+msgid "پست به علاقه مندی ها اضافه شد"
+msgstr "Post added to favorites"
+
+#: posts/views.py:119
+msgid "پست از علاقه مندی ها حذف شد"
+msgstr "The post was removed from favorites"
+
+#: subscriptions/apps.py:8 subscriptions/models.py:96
 msgid "اشتراک ها"
 msgstr "Subscriptions"
 
-#: subscriptions/models.py:36
+#: subscriptions/models.py:35
 msgid "وضعیت بسته"
 msgstr "closed status"
 
-#: subscriptions/models.py:40
+#: subscriptions/models.py:39
 msgid "قیمت"
 msgstr "Price"
 
-#: subscriptions/models.py:43
+#: subscriptions/models.py:42
 msgid "مدت زمان"
 msgstr "duration time"
 
-#: subscriptions/models.py:53
+#: subscriptions/models.py:52
 msgid "بسته ها"
 msgstr "Packages"
 
-#: subscriptions/models.py:86
+#: subscriptions/models.py:85
 msgid "زمان شروع"
 msgstr "start time"
 
-#: subscriptions/models.py:90
+#: subscriptions/models.py:89
 msgid "زمان پایان"
 msgstr "expire time"
 
-#: subscriptions/models.py:96 templates/base.html:171
+#: subscriptions/models.py:95 templates/base.html:171
 msgid "اشتراک"
 msgstr "Subscription"
 
-#: subscriptions/models.py:123
+#: subscriptions/models.py:122
 msgid "اشتراک {} برای کاربر {}"
 msgstr "subscription {} for user {}"
 

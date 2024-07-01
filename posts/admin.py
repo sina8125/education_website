@@ -6,6 +6,7 @@ from mptt.admin import DraggableMPTTAdmin
 
 # local
 from .models import Post, Category, Comment
+from utils.mixins import CreatedUpdatedTimeAdminMixin
 
 # third party
 from ckeditor.widgets import CKEditorWidget
@@ -27,15 +28,19 @@ class CommentInline(NestedStackedInline):
 
 
 @admin.register(Comment)
-class CommentAdmin(NestedModelAdmin):
-    list_display = ('author', 'post', 'created_time', 'is_reply')
+class CommentAdmin(CreatedUpdatedTimeAdminMixin, NestedModelAdmin):
+    list_display = ('author', 'post', 'is_reply',
+                    *CreatedUpdatedTimeAdminMixin.list_display)
     inlines = [CommentInline]
+    readonly_fields = CreatedUpdatedTimeAdminMixin.readonly_fields
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'title_en')
+class PostAdmin(CreatedUpdatedTimeAdminMixin, admin.ModelAdmin):
+    list_display = ('pk', 'title', 'title_en',
+                    *CreatedUpdatedTimeAdminMixin.list_display)
     inlines = [CommentInline]
+    readonly_fields = CreatedUpdatedTimeAdminMixin.readonly_fields
 
 
 admin.site.register(

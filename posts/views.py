@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.utils.translation import gettext_lazy as _
 
 # local
 from .forms import CommentCreateForm, CommentReplyForm
@@ -55,12 +56,12 @@ class PostDetailView(View):
             created_time__gte=timezone.now() - timedelta(days=30)).exclude(pk=post.pk).order_by('?')[:3]
         if post.is_premium:
             if not request.user.is_authenticated:
-                messages.error(request, 'برای مشاهده این پست لطفا وارد شوید', 'danger')
+                messages.error(request, _('برای مشاهده این پست لطفا وارد شوید'), 'danger')
                 return redirect(request.META['HTTP_REFERER'])
             user_sub = Subscription.objects.filter(user=request.user,
                                                    )
             if not user_sub.exists():
-                messages.error(request, 'برای مشاهده این پست به اشتراک نیاز دارید', 'danger')
+                messages.error(request, _('برای مشاهده این پست به اشتراک نیاز دارید'), 'danger')
                 return redirect(request.META['HTTP_REFERER'])
         is_favorite = False
         if request.user.is_authenticated:
@@ -84,7 +85,7 @@ class PostDetailView(View):
             new_comment.author = request.user
             new_comment.post = post
             new_comment.save()
-            messages.success(request, 'نظر شما ثبت شد', 'success')
+            messages.success(request, _('نظر شما ثبت شد'), 'success')
             return redirect('post:post_detail', slug)
 
 
@@ -101,7 +102,7 @@ class PostAddReplyView(View):
             reply.reply_to = comment
             reply.is_reply = True
             reply.save()
-            messages.success(request, 'پاسخ شما ثبت شد', 'success')
+            messages.success(request, _('پاسخ شما ثبت شد'), 'success')
             return redirect('post:post_detail', slug)
 
 
@@ -112,8 +113,8 @@ class PostAddToFavoriteView(View):
         post = get_object_or_404(Post, slug=post_slug)
         favorite, created = Favorite.objects.get_or_create(post=post, user=user)
         if created:
-            messages.success(request, 'پست به علاقه مندی ها اضافه شد', 'success')
+            messages.success(request, _('پست به علاقه مندی ها اضافه شد'), 'success')
         else:
             favorite.delete()
-            messages.success(request, 'پست از علاقه مندی ها حذف شد', 'success')
+            messages.success(request, _('پست از علاقه مندی ها حذف شد'), 'success')
         return redirect('post:post_detail', post_slug)

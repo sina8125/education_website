@@ -6,12 +6,14 @@ from django.utils.translation import gettext_lazy as _
 # local
 from .models import OtpCode, User
 from .forms import UserChangeForm, UserCreationForm
+from utils.mixins import CreatedUpdatedTimeAdminMixin
 
 
 @admin.register(OtpCode)
-class OtpCodeAdmin(admin.ModelAdmin):
-    list_display = ('phone_number', 'code', 'created_time')
-    readonly_fields = ('created_time',)
+class OtpCodeAdmin(CreatedUpdatedTimeAdminMixin, admin.ModelAdmin):
+    list_display = ('phone_number', 'code',
+                    *CreatedUpdatedTimeAdminMixin.list_display)
+    readonly_fields = CreatedUpdatedTimeAdminMixin.readonly_fields
 
 
 @admin.register(User)

@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.utils import timezone
+from django.utils import timezone, formats
 from django.utils.translation import gettext_lazy as _
 
 # local
@@ -186,7 +186,7 @@ class OtpCode(AbstractCreatedUpdatedTime):
     )
 
     def __str__(self):
-        return f'{self.phone_number} - {self.code} - {self.created_time}'
+        return f'{str(self.phone_number).replace(" ", "")} - {self.code} - {formats.date_format(self.created_time)}'
 
     class Meta:
         verbose_name = _('رمز یکبار مصرف')

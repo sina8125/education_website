@@ -201,7 +201,7 @@ class ProfileSubscriptionView(View):
     @method_decorator(login_required)
     def get(self, request):
         user = request.user
-        subscriptions = user.subscriptions.filter(expire_time__gt=timezone.now()).order_by('expire_time')
+        subscriptions = user.subscriptions.filter(expire_time__gt=timezone.now()).order_by('-expire_time')
         if subscriptions.exists():
             subscriptions = subscriptions[0]
             remaining_time = _("{days} روز و {H} ساعت و {M} دقیقه").format(days=subscriptions.remaining_time.days,
