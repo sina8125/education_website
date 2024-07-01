@@ -186,7 +186,9 @@ class OtpCode(AbstractCreatedUpdatedTime):
     )
 
     def __str__(self):
-        return f'{str(self.phone_number).replace(" ", "")} - {self.code} - {formats.date_format(self.created_time)}'
+        return (f'{str(self.phone_number).replace(" ", "")} '
+                f'- {self.code} '
+                f'- {formats.date_format(self.created_time, format="DATETIME_FORMAT")}')
 
     class Meta:
         verbose_name = _('رمز یکبار مصرف')
