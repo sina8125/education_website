@@ -7,27 +7,16 @@ from django.utils.translation import gettext_lazy as _
 # local
 from accounts.models import User
 from utils.models import AbstractCreatedUpdatedTime
-from utils.utils import translate_field
 
 
 class Package(AbstractCreatedUpdatedTime):
     title = models.CharField(
-        verbose_name=_('عنوان فارسی'),
-        max_length=200,
-        null=False
-    )
-    title_en = models.CharField(
-        verbose_name=_('عنوان انگلیسی'),
+        verbose_name=_('عنوان'),
         max_length=200,
         null=False
     )
     description = models.TextField(
-        verbose_name=_('توضیحات فارسی'),
-        blank=True,
-        null=True
-    )
-    description_en = models.TextField(
-        verbose_name=_('توضیحات انگلیسی'),
+        verbose_name=_('توضیحات'),
         blank=True,
         null=True
     )
@@ -45,7 +34,7 @@ class Package(AbstractCreatedUpdatedTime):
     )
 
     def __str__(self):
-        return translate_field(self, 'title')
+        return self.title
 
     class Meta:
         verbose_name = _('بسته')

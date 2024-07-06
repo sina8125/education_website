@@ -1,7 +1,6 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
-{% load translate_tags %}
 
 <!DOCTYPE html>
 <html lang="en" {% if LANGUAGE_CODE|language_bidi %}dir="rtl"{% else %} dir="ltr" {% endif %}>
@@ -96,7 +95,7 @@
                             {% for category in categories %}
                                 <li>
                                     <a class="dropdown-item" href="{{ category.get_absolute_url }}">
-                                        {% translate_field category name %} &raquo;
+                                        {{ category.name }} &raquo;
                                     </a>
                                     <ul class="dropdown-menu dropdown-submenu shadow rounded
                                                                  {% if LANGUAGE_CODE|language_bidi %}dropdown-submenu-left{% else %}dropdown-submenu-right{% endif %}">
@@ -105,7 +104,7 @@
                                                 <li>
                                                     <a class="dropdown-item"
                                                        href="{{ category1.get_absolute_url }}">
-                                                        {% translate_field category1 name %} &raquo; </a>
+                                                        {{ category1.name }} &raquo; </a>
                                                     <ul class="dropdown-menu dropdown-submenu shadow rounded
                                                                                     {% if LANGUAGE_CODE|language_bidi %}dropdown-submenu-left{% else %}dropdown-submenu-right{% endif %}">
                                                         {% with categories2=category1.children.all %}
@@ -113,7 +112,7 @@
                                                                 <li>
                                                                     <a class="dropdown-item"
                                                                        href="{{ category2.get_absolute_url }}">
-                                                                        {% translate_field category2 name %}
+                                                                        {{ category2.name }}
                                                                     </a>
                                                                 </li>
                                                             {% endfor %}

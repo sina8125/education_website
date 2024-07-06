@@ -10,6 +10,7 @@ from utils.mixins import CreatedUpdatedTimeAdminMixin
 
 # third party
 from ckeditor.widgets import CKEditorWidget
+from modeltranslation.admin import TranslationAdmin
 
 
 # Register your models here.
@@ -36,21 +37,27 @@ class CommentAdmin(CreatedUpdatedTimeAdminMixin, NestedModelAdmin):
 
 
 @admin.register(Post)
-class PostAdmin(CreatedUpdatedTimeAdminMixin, admin.ModelAdmin):
-    list_display = ('pk', 'title', 'title_en',
+class PostAdmin(CreatedUpdatedTimeAdminMixin, TranslationAdmin):
+    list_display = ('pk', 'title',
                     *CreatedUpdatedTimeAdminMixin.list_display)
     inlines = [CommentInline]
     readonly_fields = CreatedUpdatedTimeAdminMixin.readonly_fields
 
 
+class CategoryAdmin(DraggableMPTTAdmin, TranslationAdmin):
+    pass
+
+
 admin.site.register(
     Category,
-    DraggableMPTTAdmin,
+    CategoryAdmin,
     list_display=(
+        'pk',
         'tree_actions',
         'indented_title',
     ),
     list_display_links=(
+        'pk',
         'indented_title',
     ),
 )

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
-{% load translate_tags %}
 
 {% block content %}
     <div class="pt-2">
@@ -11,10 +10,10 @@
                style="text-decoration:none; border-radius: 20px">
                 <div class="card shadow my-2"
                      style="width: 18rem; max-height: 18rem; display:inline-block; border-radius: 10px; overflow: hidden">
-                    <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{% translate_field post title %}"
+                    <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{{ post.title }}"
                          style="height: 10rem">
                     <div class="card-body text-center">
-                        <h5 class="card-title">{% translate_field post title %}</h5>
+                        <h5 class="card-title">{{ post.title }}</h5>
                     </div>
                     {% if post.is_premium %}
                         <div style="position:absolute; bottom: 5px; left: 5px">

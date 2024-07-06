@@ -4,10 +4,13 @@ from django.contrib import admin
 # local
 from .models import Package, Subscription
 
+# third party
+from modeltranslation.admin import TranslationAdmin
+
 
 @admin.register(Package)
-class PackageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'title_en', 'is_active', 'price', 'duration']
+class PackageAdmin(TranslationAdmin):
+    list_display = ['pk', 'title', 'is_active', 'price', 'duration']
 
 
 @admin.register(Subscription)

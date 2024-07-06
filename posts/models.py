@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 # local
 from accounts.models import User
 from utils.models import AbstractCreatedUpdatedTime
-from utils.utils import translate_field
 
 # python
 from os.path import join, splitext
@@ -20,11 +19,7 @@ from mptt.models import TreeForeignKey, MPTTModel
 
 class Category(MPTTModel):
     name = models.CharField(
-        verbose_name=_('نام فارسی'),
-        max_length=200
-    )
-    name_en = models.CharField(
-        verbose_name=_('نام انگلیسی'),
+        verbose_name=_('نام'),
         max_length=200
     )
     slug = models.SlugField(
@@ -50,8 +45,8 @@ class Category(MPTTModel):
 
     def __str__(self):
         if self.parent:
-            return f'{self.parent}_{translate_field(self, "name")}'
-        return translate_field(self, 'name')
+            return f'{self.parent}_{self.name}'
+        return self.name
 
     def get_absolute_url(self):
         return reverse('post:category_filter:post-list', args=[self.slug, ])
@@ -63,11 +58,7 @@ class Post(AbstractCreatedUpdatedTime):
         return join('posts', 'thumbnails', f'thumbnails_{filename}')
 
     title = models.CharField(
-        verbose_name=_('عنوان فارسی'),
-        max_length=200
-    )
-    title_en = models.CharField(
-        verbose_name=_('عنوان انگلیسی'),
+        verbose_name=_('عنوان'),
         max_length=200
     )
     slug = models.SlugField(
@@ -94,12 +85,7 @@ class Post(AbstractCreatedUpdatedTime):
         default=False
     )
     description = RichTextUploadingField(
-        verbose_name=_('توضیحات فارسی'),
-        blank=True,
-        config_name='default'
-    )
-    description_en = RichTextUploadingField(
-        verbose_name=_('توضیحات انگلیسی'),
+        verbose_name=_('توضیحات'),
         blank=True,
         config_name='default'
     )
@@ -117,7 +103,7 @@ class Post(AbstractCreatedUpdatedTime):
         verbose_name_plural = _('پست ها')
 
     def __str__(self):
-        return translate_field(self, 'title')
+        return self.title
 
     def get_absolute_url(self):
         return reverse('posts:post_detail', args=[self.slug, ])

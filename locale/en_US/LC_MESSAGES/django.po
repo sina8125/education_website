@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 10:39+0330\n"
+"POT-Creation-Date: 2024-07-06 11:25+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: accounts/admin.py:50 accounts/forms.py:111 accounts/forms.py:160
+#: accounts/admin.py:52 accounts/forms.py:111 accounts/forms.py:160
 #: accounts/models.py:69 accounts/models.py:175
 #: accounts/templates/accounts/login.html:31
 #: accounts/templates/accounts/register.html:78
@@ -45,7 +45,7 @@ msgstr "The two passwords entered do not match."
 
 #: accounts/forms.py:94 accounts/models.py:84
 #: accounts/templates/accounts/profile.html:30
-#: accounts/templates/accounts/register.html:32
+#: accounts/templates/accounts/register.html:32 posts/models.py:22
 msgid "نام"
 msgstr "name"
 
@@ -67,7 +67,7 @@ msgstr "email"
 msgid "تاریخ تولد"
 msgstr "Date of birth"
 
-#: accounts/forms.py:154 accounts/templates/accounts/verify.html:33
+#: accounts/forms.py:154 accounts/templates/accounts/verify.html:32
 msgid "کد تایید"
 msgstr "Verification code"
 
@@ -107,8 +107,8 @@ msgstr "active"
 msgid "کارمند"
 msgstr "Employee"
 
-#: accounts/models.py:135 payments/models.py:17 posts/models.py:191
-#: subscriptions/models.py:71
+#: accounts/models.py:135 payments/models.py:17 posts/models.py:186
+#: subscriptions/models.py:60
 msgid "کاربر"
 msgstr "user"
 
@@ -120,15 +120,15 @@ msgstr "users"
 msgid "کد"
 msgstr "code"
 
-#: accounts/models.py:184 accounts/templates/accounts/verify.html:17
+#: accounts/models.py:184 accounts/templates/accounts/verify.html:16
 msgid "تایید شماره تلفن"
 msgstr "Confirm phone number"
 
-#: accounts/models.py:192
+#: accounts/models.py:194
 msgid "رمز یکبار مصرف"
 msgstr "One-time password"
 
-#: accounts/models.py:193
+#: accounts/models.py:195
 msgid "رمزهای یکبار مصرف"
 msgstr "One-time passwords"
 
@@ -136,16 +136,16 @@ msgstr "One-time passwords"
 msgid "تغییر رمز عبور"
 msgstr "change Password"
 
-#: accounts/templates/accounts/change_password.html:56 templates/base.html:173
+#: accounts/templates/accounts/change_password.html:56 templates/base.html:172
 msgid "تغییر رمز"
 msgstr "Change Password"
 
 #: accounts/templates/accounts/login.html:16
-#: accounts/templates/accounts/login.html:53 templates/base.html:177
+#: accounts/templates/accounts/login.html:53 templates/base.html:176
 msgid "ورود"
 msgstr "log in"
 
-#: accounts/templates/accounts/profile.html:15 templates/base.html:168
+#: accounts/templates/accounts/profile.html:15 templates/base.html:167
 msgid "مشخصات کاربر"
 msgstr "User profile"
 
@@ -154,7 +154,7 @@ msgid "شماره موبایل"
 msgstr "phone number"
 
 #: accounts/templates/accounts/profile.html:83
-#: accounts/templates/accounts/verify.html:40
+#: accounts/templates/accounts/verify.html:39
 msgid "تایید"
 msgstr "confirmation"
 
@@ -171,7 +171,7 @@ msgstr "Your subscription has %(remaining)s left"
 msgid "اشتراک فعالی برای حساب شما وجود ندارد"
 msgstr "There are no active subscriptions for your account"
 
-#: accounts/templates/accounts/register.html:17 templates/base.html:178
+#: accounts/templates/accounts/register.html:17 templates/base.html:177
 msgid "ثبت نام"
 msgstr "Register"
 
@@ -244,11 +244,11 @@ msgstr "{days} days and {H} hours and {M} minutes"
 msgid "خروج با موفقیت انجام شد"
 msgstr "Logout was successful"
 
-#: education/settings.py:123
+#: education/settings.py:124
 msgid "فارسی"
 msgstr "Persian"
 
-#: education/settings.py:124
+#: education/settings.py:125
 msgid "انگلیسی"
 msgstr "English"
 
@@ -256,7 +256,7 @@ msgstr "English"
 msgid "پرداخت ها"
 msgstr "Payments"
 
-#: payments/models.py:22 subscriptions/models.py:51 subscriptions/models.py:63
+#: payments/models.py:22 subscriptions/models.py:40 subscriptions/models.py:52
 msgid "بسته"
 msgstr "Package"
 
@@ -268,21 +268,21 @@ msgstr "Bank"
 msgid "مبلغ"
 msgstr "Amount"
 
-#: payments/models.py:35 subscriptions/models.py:79
+#: payments/models.py:35 subscriptions/models.py:68
 msgid "پرداخت"
 msgstr "the payment"
 
-#: payments/templates/payments/callback.html:13
-#: subscriptions/templates/subscriptions/package.html:99
-#: subscriptions/templates/subscriptions/package_detail.html:13
+#: payments/templates/payments/callback.html:12
+#: subscriptions/templates/subscriptions/package.html:98
+#: subscriptions/templates/subscriptions/package_detail.html:12
 msgid "خرید اشتراک"
 msgstr "Buy a subscription"
 
-#: payments/templates/payments/callback.html:17
+#: payments/templates/payments/callback.html:16
 msgid "پرداخت با موفقیت انجام شد"
 msgstr "Payment was successful"
 
-#: payments/templates/payments/callback.html:19
+#: payments/templates/payments/callback.html:18
 msgid ""
 "فرایند پرداخت با شکست مواجه شد. در صورت برداشت از حساب ظرف ۴۸ ساعت آینده "
 "مبلغ به حساب شما بازگشت داده میشود."
@@ -290,7 +290,7 @@ msgstr ""
 "The payment process failed. In case of withdrawal from the account within "
 "the next 48 hours, the amount will be returned to your account."
 
-#: payments/templates/payments/callback.html:29
+#: payments/templates/payments/callback.html:28
 msgid "بازگشت به صفحه اصلی"
 msgstr "Return to main page"
 
@@ -298,127 +298,111 @@ msgstr "Return to main page"
 msgid "اتصال به درگاه با مشکل مواجه شد"
 msgstr "There was a problem connecting to the payment gateway"
 
-#: posts/apps.py:8 posts/models.py:117
+#: posts/apps.py:8 posts/models.py:112
 msgid "پست ها"
 msgstr "posts"
 
-#: posts/models.py:23
-msgid "نام فارسی"
-msgstr "Persian Name"
-
-#: posts/models.py:27
-msgid "نام انگلیسی"
-msgstr "English name"
-
-#: posts/models.py:31 posts/models.py:74
+#: posts/models.py:26 posts/models.py:69
 msgid "نشانی"
 msgstr "address"
 
-#: posts/models.py:37
+#: posts/models.py:32
 msgid "دسته بندی والد"
 msgstr "Parent category"
 
-#: posts/models.py:48 posts/models.py:108 templates/base.html:93
+#: posts/models.py:43 posts/models.py:103 templates/base.html:92
 msgid "دسته بندی"
 msgstr "Category"
 
-#: posts/models.py:49
+#: posts/models.py:44
 msgid "دسته بندی ها"
 msgstr "categories"
 
-#: posts/models.py:66 subscriptions/models.py:15
-msgid "عنوان فارسی"
-msgstr "Persian title"
+#: posts/models.py:61 subscriptions/models.py:14
+msgid "عنوان"
+msgstr "Title"
 
-#: posts/models.py:70 subscriptions/models.py:20
-msgid "عنوان انگلیسی"
-msgstr "English title"
-
-#: posts/models.py:79
+#: posts/models.py:74
 msgid "تصویر اصلی"
 msgstr "Main picture"
 
-#: posts/models.py:84 posts/models.py:135
+#: posts/models.py:79 posts/models.py:130
 msgid "نویسنده"
 msgstr "the writer"
 
-#: posts/models.py:89 posts/models.py:152
+#: posts/models.py:84 posts/models.py:147
 msgid "وضعیت دسترسی"
 msgstr "Access status"
 
-#: posts/models.py:93
+#: posts/models.py:88
 msgid "پست اشتراکی"
 msgstr "Shared post"
 
-#: posts/models.py:97 subscriptions/models.py:25
-msgid "توضیحات فارسی"
-msgstr "Persian description"
+#: posts/models.py:92 subscriptions/models.py:19
+msgid "توضیحات"
+msgstr "Description"
 
-#: posts/models.py:102 subscriptions/models.py:30
-msgid "توضیحات انگلیسی"
-msgstr "English description"
-
-#: posts/models.py:116 posts/models.py:129 posts/models.py:185
+#: posts/models.py:111 posts/models.py:124 posts/models.py:180
 msgid "پست"
 msgstr "Post"
 
-#: posts/models.py:141
+#: posts/models.py:136
 msgid "پاسخ به"
 msgstr "Answer to"
 
-#: posts/models.py:148
+#: posts/models.py:143
 msgid "نوع کامنت"
 msgstr "Comment type"
 
-#: posts/models.py:156
+#: posts/models.py:151
 msgid "متن"
 msgstr "Text"
 
-#: posts/models.py:161
+#: posts/models.py:156
 msgid "کامنت"
 msgstr "comment"
 
-#: posts/models.py:162
+#: posts/models.py:157
 msgid "کامنت ها"
 msgstr "Comments"
 
-#: posts/models.py:197
+#: posts/models.py:192
 msgid "علاقه مندی"
 msgstr "interest"
 
-#: posts/models.py:198
+#: posts/models.py:193
 msgid "علاقه مندی ها"
 msgstr "Favorites"
 
-#: posts/templates/posts/detail.html:50
+#: posts/templates/posts/detail.html:49
 msgid "نظر خود را بنویسید"
 msgstr "Write your comment"
 
-#: posts/templates/posts/detail.html:61 posts/templates/posts/detail.html:178
+#: posts/templates/posts/detail.html:60 posts/templates/posts/detail.html:177
 msgid "ثبت"
 msgstr "confirm"
 
-#: posts/templates/posts/detail.html:67
+#: posts/templates/posts/detail.html:66
 msgid "برای ثبت نظر لطفا وارد شوید"
 msgstr "Please log in to post a comment"
 
-#: posts/templates/posts/detail.html:75
+#: posts/templates/posts/detail.html:74
 msgid "پست های مشابه"
 msgstr "Similar posts"
 
-#: posts/templates/posts/detail.html:134 posts/templates/posts/detail.html:198
+#: posts/templates/posts/detail.html:133 posts/templates/posts/detail.html:197
 msgid "پاسخ"
 msgstr "reply"
 
-#: posts/templates/posts/detail.html:169
+#: posts/templates/posts/detail.html:168
 msgid "پاسخ خود را بنویسید"
 msgstr "Write your answer"
 
-#: posts/templates/posts/detail.html:184
+#: posts/templates/posts/detail.html:183
 msgid "برای نوشتن نظر باید وارد شوید"
 msgstr "You must be logged in to write a comment"
 
-#: posts/templates/posts/detail.html:188
+#: posts/templates/posts/detail.html:187
 msgid "لغو پاسخ"
 msgstr "Cancel reply"
 
@@ -446,87 +430,99 @@ msgstr "Post added to favorites"
 msgid "پست از علاقه مندی ها حذف شد"
 msgstr "The post was removed from favorites"
 
-#: subscriptions/apps.py:8 subscriptions/models.py:96
+#: subscriptions/apps.py:8 subscriptions/models.py:85
 msgid "اشتراک ها"
 msgstr "Subscriptions"
 
-#: subscriptions/models.py:35
+#: subscriptions/models.py:24
 msgid "وضعیت بسته"
 msgstr "closed status"
 
-#: subscriptions/models.py:39
+#: subscriptions/models.py:28
 msgid "قیمت"
 msgstr "Price"
 
-#: subscriptions/models.py:42
+#: subscriptions/models.py:31
 msgid "مدت زمان"
 msgstr "duration time"
 
-#: subscriptions/models.py:52
+#: subscriptions/models.py:41
 msgid "بسته ها"
 msgstr "Packages"
 
-#: subscriptions/models.py:85
+#: subscriptions/models.py:74
 msgid "زمان شروع"
 msgstr "start time"
 
-#: subscriptions/models.py:89
+#: subscriptions/models.py:78
 msgid "زمان پایان"
 msgstr "expire time"
 
-#: subscriptions/models.py:95 templates/base.html:171
+#: subscriptions/models.py:84 templates/base.html:170
 msgid "اشتراک"
 msgstr "Subscription"
 
-#: subscriptions/models.py:122
+#: subscriptions/models.py:111
 msgid "اشتراک {} برای کاربر {}"
 msgstr "subscription {} for user {}"
 
-#: subscriptions/templates/subscriptions/package.html:89
-#: subscriptions/templates/subscriptions/package_detail.html:30
+#: subscriptions/templates/subscriptions/package.html:88
+#: subscriptions/templates/subscriptions/package_detail.html:29
 msgid "تومان"
 msgstr "Toman"
 
-#: subscriptions/templates/subscriptions/package.html:91
-#: subscriptions/templates/subscriptions/package_detail.html:16
+#: subscriptions/templates/subscriptions/package.html:90
+#: subscriptions/templates/subscriptions/package_detail.html:15
 msgid "روز"
 msgstr "Day"
 
-#: subscriptions/templates/subscriptions/package_detail.html:16
+#: subscriptions/templates/subscriptions/package_detail.html:15
 msgid "مدت اشتراک"
 msgstr "Subscription period"
 
-#: subscriptions/templates/subscriptions/package_detail.html:30
+#: subscriptions/templates/subscriptions/package_detail.html:29
 msgid "پرداخت مبلغ"
 msgstr "Pay the amount"
 
-#: templates/base.html:74
+#: templates/base.html:73
 msgid "صفحه اصلی"
 msgstr "Main Page"
 
-#: templates/base.html:77
+#: templates/base.html:76
 msgid "بسته های اشتراکی"
 msgstr "Subscription packages"
 
-#: templates/base.html:164
+#: templates/base.html:163
 msgid "پروفایل"
 msgstr "profile"
 
-#: templates/base.html:170
+#: templates/base.html:169
 msgid "پست های مورد علاقه"
 msgstr "Favorite posts"
 
-#: templates/base.html:174
+#: templates/base.html:173
 msgid "خروج"
 msgstr "Exit"
 
-#: utils/models.py:7
+#: utils/mixins.py:14 utils/models.py:7
 msgid "زمان ایجاد"
 msgstr "Creation time"
 
-#: utils/models.py:11
+#: utils/mixins.py:20 utils/models.py:11
 msgid "آخرین تغییر"
 msgstr "The last change"
+
+#~ msgid "نام فارسی"
+#~ msgstr "Persian Name"
+
+#~ msgid "نام انگلیسی"
+#~ msgstr "English name"
+
+#~ msgid "عنوان انگلیسی"
+#~ msgstr "English title"
+
+#~ msgid "توضیحات انگلیسی"
+#~ msgstr "English description"
 
 #~ msgid "تایید شماره موبایل"
 #~ msgstr "Mobile number verification"
