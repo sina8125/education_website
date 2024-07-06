@@ -5,11 +5,11 @@ from django.contrib import admin
 from .models import Package, Subscription
 
 # third party
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TabbedTranslationAdmin
 
 
 @admin.register(Package)
-class PackageAdmin(TranslationAdmin):
+class PackageAdmin(TabbedTranslationAdmin):
     list_display = ['pk', 'title', 'is_active', 'price', 'duration']
 
 
