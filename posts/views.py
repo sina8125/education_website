@@ -14,6 +14,8 @@ from .forms import CommentCreateForm, CommentReplyForm
 from .models import Post, Comment, Favorite, Category
 from .serializers import CommentSerializer
 from subscriptions.models import Subscription
+from accounts.authentication import CookieJWTAuthentication
+from .serializers import PostListSerializer
 
 # python
 import math
@@ -21,6 +23,9 @@ from datetime import timedelta
 
 # third party
 from rest_framework.renderers import JSONRenderer
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 class PostListView(View):
@@ -118,3 +123,21 @@ class PostAddToFavoriteView(View):
             favorite.delete()
             messages.success(request, _('پست از علاقه مندی ها حذف شد'), 'success')
         return redirect('post:post_detail', post_slug)
+
+
+# ---------------------------
+# apis
+
+class PostListApiView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+
+    def get(self, request: Request, category_slug=None):
+        posts = Post.objects.filter(available=True)
+        if category_slug:
+            categories = get_object_or_404(Category, slug=category_slug).get_descendants(include_self=True)
+            posts = posts.filter(category__in=categories)
+        if 'favorite/' in request.path and request.user.is_authenticated:
+            posts = posts.filter(available=True, favorites__user=request.user)
+
+        serializer = PostListSerializer(posts, many=True)
+        return Response(serializer.data)

@@ -1,5 +1,6 @@
 # local
-from .models import Comment
+from .models import Comment, Post, Category
+from accounts.serializer import ProfileSerializer
 
 # third party
 from rest_framework import serializers
@@ -29,3 +30,25 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_show_date(self, obj):
         return obj.show_date
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    parent = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = ('pk', 'name', 'slug', 'parent')
+
+    def get_parent(self, obj):
+        if obj.parent:
+            return CategorySerializer(obj.parent).data
+        return None
+
+
+class PostListSerializer(serializers.ModelSerializer):
+    created_user = ProfileSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ('title', 'slug', 'thumbnail', 'is_premium', 'created_user', 'category', 'description')

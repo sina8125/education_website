@@ -7,10 +7,12 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 # local
 from .forms import UserRegistrationForm, VerifyPhoneNumberForm, UserLoginForm, ChangePasswordForm, UserChangeForm
 from .models import OtpCode, User
+from .serializer import LoginSerializer, RegisterSerializer, VerifyCodeSerializer
 
 # python
 import datetime
@@ -18,6 +20,13 @@ import random
 
 # third package
 from kavenegar import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.request import Request
+from rest_framework_simplejwt.tokens import RefreshToken, Token, AccessToken
+from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken, AuthenticationFailed
+from rest_framework import status
 
 
 def send_otp_code(phone_number, code):
@@ -220,3 +229,115 @@ class UserLogoutView(View):
         logout(request)
         messages.success(request, _('خروج با موفقیت انجام شد'), 'success')
         return redirect('post:home:post-list')
+
+
+# ----------------------------
+# api
+
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
+
+
+def set_token_cookie(response, access=None, refresh=None):
+    if access:
+        access = AccessToken(access)
+        response.set_cookie('access_token',
+                            str(access),
+                            expires=timezone.now() + access.lifetime,
+                            secure=settings.SESSION_COOKIE_SECURE,
+                            httponly=True
+                            )
+    if refresh:
+        refresh = RefreshToken(refresh)
+        response.set_cookie('refresh_token',
+                            str(refresh),
+                            expires=timezone.now() + refresh.lifetime,
+                            secure=settings.SESSION_COOKIE_SECURE,
+                            httponly=True
+                            )
+    return response
+
+
+class RefreshTokenView(TokenRefreshView):
+    def post(self, request: Request, *args, **kwargs):
+        data = {'refresh': str(request.COOKIES.get('refresh_token'))}
+        serializer = self.get_serializer(data=data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+        response = Response({'detail': _('توکن جدید ایجاد شد')})
+        response = set_token_cookie(response, **serializer.validated_data)
+        return response
+
+
+class LoginAPIView(APIView):
+    def post(self, request: Request):
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        phone_number = serializer.data.get('phone_number')
+        password = serializer.data.get('password')
+        user = authenticate(phone_number=phone_number, password=password)
+        if user is not None:
+            token = get_tokens_for_user(user)
+            response = Response({'phone_number': phone_number})
+            response = set_token_cookie(response, **token)
+            print(response.cookies)
+            return response
+        else:
+            raise AuthenticationFailed(detail=_('شماره تلفن یا پسورد نادرست است'), code='data_incorrect')
+
+
+class RegisterAPIView(APIView):
+    def post(self, request: Request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        birthday = serializer.validated_data['birthday'].isoformat() if serializer.validated_data.get(
+            'birthday') else None
+        request.session['user_info'] = {
+            'phone_number': str(serializer.validated_data['phone_number']),
+            'email': serializer.validated_data.get('email', None),
+            'first_name': serializer.validated_data['first_name'],
+            'last_name': serializer.validated_data.get('last_name', ''),
+            'birthday': birthday,
+            'password': serializer.validated_data['password'],
+        }
+        random_code = random.randint(1000, 9999)
+        otp_instance, created = OtpCode.objects.get_or_create(
+            phone_number=serializer.validated_data.get('phone_number'),
+            created_time__gt=timezone.now() - timezone.timedelta(
+                minutes=2),
+            defaults={
+                'code': random_code
+            })
+        if not created:
+            random_code = otp_instance.code
+        # try:
+        #     send_otp_code(str(serializer.validated_data['phone_number']), random_code)
+        # except Exception as e:
+        #     raise AuthenticationFailed(_('ارسال کد با مشکل مواجه شد'), code='send_code_failed')
+        return Response({'detail':_('کد تایید ارسال شد')}, status=status.HTTP_200_OK)
+
+
+class VerifyCodeAPIView(APIView):
+    def post(self, request: Request):
+        validated_data = request.session.get('user_info')
+        birthday = datetime.date.fromisoformat(validated_data['birthday']) if validated_data.get('birthday') else None
+        validated_data['birthday'] = birthday
+        data = request.data
+        data['phone_number'] = validated_data.get('phone_number')
+        serializer = VerifyCodeSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        code_instance = OtpCode.objects.get(phone_number=validated_data.get('phone_number'),
+                                            created_time__gt=timezone.now() - timezone.timedelta(minutes=2))
+        if serializer.validated_data['code'] == code_instance.code:
+            User.objects.create_user(**validated_data)
+            serializer.save()
+            return Response({'detail':_('ثبت نام با موفقیت انجام شد')},status=status.HTTP_201_CREATED)
+        else:
+            raise AuthenticationFailed(_('کد تایید نادرست است'),code='verify_code_incorrect')
